@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+
+
+{% block body %}
+
+    <h3>Dashboard</h3>
+    <hr>
+    <p>Welcome {{request.user.username}}</p>
+    <p>
+        <a href="/article/add-article" class="btn btn-primary">Add Article</a>
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+                {% if request.user.username == 'user_name' or request.user.username == 'admin' %}    
+                <th>Update</th>
+                <th>Delete</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for x in articles %}
+                
+            <tr>
+                <td>{{x.id}}</td>
+                <td>
+                    <a href="/article/article/{{x.id}}">
+                        {{x.title}}
+                    </a>
+                </td>
+                <td>{{x.author}}</td>
+                <td>{{x.created_date}}</td>
+                
+                {% if request.user.username == 'user_name' or request.user.username == 'admin' %}    
+                    <td><button class="btn btn-success">E</button></td>
+                    <td><button class="btn btn-danger">D</button></td>
+                {% endif %}
+                    
+            </tr>
+
+            {% endfor %}
+                
+        </tbody>
+    </table>
+    
+{% endblock body %}
+    
